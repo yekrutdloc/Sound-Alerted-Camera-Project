@@ -19,6 +19,7 @@
 
 
 ##Setting up Feather HUZZAH w/ ESP8266
+> Feather HUZZAH w/ ESP8266 is used to read the noise levels in an area and pinpoint loud sounds - which then will control the PTZ camera through HTTP-requests
 
 ###Install serial drivers
 There are serial drivers compatible with Mac, Windows, Linux and Android
@@ -45,3 +46,17 @@ Select 115200 baud rate
 Select Serial port
 Ready to upload code!
 Recommended to try a test code in "Code->HUZZAH->Hardware Test Codes" to verify that everything is working
+
+###Connecting to camera using Ethernet cable
+Connect Ethernet cable to PoE module(*TO DO: skriv ner modell nummer och hämta specs), this supplises the network connection+power
+Connect PoE module to 230V and an Ethernet cable to a router or computer
+Kameran ska kunna acceptera anonymous users(Ska vara satt på kamerans GUI settings)
+
+Local network options for computer needed to connect to camera:
+IP: 192.168.0.10
+Subnet: 255.255.255.0
+Router: 192.168.0.20
+Using a browser connect to: 192.168.0.20
+Login information:
+Name: *********
+Password: *******
