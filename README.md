@@ -6,7 +6,7 @@
 
 .  
 |-- Documentation  
-|    |-- Feather HUZZAH with ESP8266 #All documentation and "non-source code" files  
+    +-- Feather HUZZAH with ESP8266 #All documentation and "non-source code" files  
 
 
 |        |  
