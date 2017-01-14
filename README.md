@@ -3,6 +3,11 @@
 
 ##Directory tree
 .
++-- Documentation
+	|
+	+-- Feather HUZZAH with ESP8266 #All documentation and "non-source code" files
+		|
+		+-- Feather HUZZAH Serial Drivers #Mac, Windows, Linux or Android serial drivers for Feather HUZZAH
 +-- Code		#Contains all source- & test codes for the project
 	|
 	+-- Arduino Library		#Libraries for Arduino IDE needed to compile source code 
@@ -10,7 +15,6 @@
   	|	+-- ESP8266Scheduler		#Scheduler for tasks on Arduino IDE for Feather HUZZAH ESP8266
 	+-- HUZZAH		#Source code for Feather HUZZAH ESP8266
 		|
-  		+-- Feather HUZZAH Serial Drivers #Mac, Windows, Linux or Android serial drivers for Feather HUZZAH
   		+-- Hardware Test Codes #Projects for testing hardware
 
 
@@ -18,7 +22,7 @@
 
 ###Install serial drivers
 There are serial drivers compatible with Mac, Windows, Linux and Android
-Install serial drivers located in "Code->HUZZAH->Feather HUZZAH Serial Drivers" or download from:
+Install serial drivers located in "Documentation->Feather HUZZAH with ESP8266->Feather HUZZAH Serial Drivers" or download from:
 https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx
 
 ###Connecting with serial(for LUA programming)
