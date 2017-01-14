@@ -37,14 +37,14 @@ https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx
 1. Open Arduino IDE Preferences  
 2. Enter this into Additional Boards Manager URLs: http://arduino.esp8266.com/stable/package_esp8266com_index.json  
 3. Press OK  
-4. Go to Tools -> Board -> Board Manager  
+4. Go to "Tools->Board->Board Manager"  
 5. Install "esp8266 by ESP8266 Community"  
 6. Restart Arduino IDE  
-7. Select "Adafruit HUZZAH ESP8266" in Tools -> Board  
-8. Select 80MHZ in CPU Frequency  
-9. Select 4M (3M SPIFFS) in Flash Size  
-10. Select 115200 baud rate  
-11. Select Serial port  
+7. Select "Adafruit HUZZAH ESP8266" in "Tools->Board"  
+8. Select "80MHZ" in "CPU Frequency" 
+9. Select "4M (3M SPIFFS)"" in "Flash Size"  
+10. Select "115200bps" in "baud rate"  
+11. Select correct serial port  
 12. Ready to upload code!  
 13. Recommended to try a test code in "Code->HUZZAH->Hardware Test Codes" to verify that everything is working  
 
@@ -53,10 +53,10 @@ https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx
 2. Connect PoE module to 230V and an Ethernet cable to a router or computer  
 3. Kameran ska kunna acceptera anonymous users(Ska vara satt på kamerans GUI settings)  
 4. Local network options for computer needed to connect to camera:  
-    *IP: 192.168.0.10  
-    *Subnet: 255.255.255.0  
-    *Router: 192.168.0.20  
+    * IP: 192.168.0.10  
+    * Subnet: 255.255.255.0  
+    * Router: 192.168.0.20  
 5. Using a browser connect to: 192.168.0.20  
-    *Login information:  
-    *User: *********  
-    8Password: *******  
+    * Login information:  
+    * User: *********  
+    * Password: *******  
