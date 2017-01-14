@@ -55,8 +55,5 @@ https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx
     * IP: 192.168.0.10  
     * Subnet: 255.255.255.0  
     * Router: 192.168.0.20  
-4. Using a browser connect to: 192.168.0.20  
-    * Login information:  
-    * User: *********  
-    * Password: *******  
+4. Using a web browser connect to: "192.168.0.20". If there is a popup screen asking for login information, then check camera manual for factory user login information.
 5. Camera has to be configured to accept anonymous users(should be able to be configured in cameras browser configurator)  
