@@ -49,14 +49,14 @@ https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx
 13. Recommended to try a test code in "Code->HUZZAH->Hardware Test Codes" to verify that everything is working  
 
 ###Connecting to camera using Ethernet cable
-1. Connect Ethernet cable to PoE module(*TO DO: skriv ner modell nummer och hämta specs), this supplises the network connection+power  
-2. Connect PoE module to 230V and an Ethernet cable to a router or computer  
-3. Kameran ska kunna acceptera anonymous users(Ska vara satt på kamerans GUI settings)  
-4. Local network options for computer needed to connect to camera:  
+1. Connect Ethernet cable between camera(AXIS PTZ Q6115-E or compatible) and PoE module(PoE port), this supplises the network connection+power  
+2. Connect PoE module to 230V and an Ethernet cable between PoE port(non PoE port) to a router or computer ethernet port  
+3. Local network options for computer needed to connect to camera:  
     * IP: 192.168.0.10  
     * Subnet: 255.255.255.0  
     * Router: 192.168.0.20  
-5. Using a browser connect to: 192.168.0.20  
+4. Using a browser connect to: 192.168.0.20  
     * Login information:  
     * User: *********  
     * Password: *******  
+5. Camera has to be configured to accept anonymous users(should be able to be configured in cameras browser configurator)  
