@@ -23,13 +23,17 @@
 
 ###Install serial drivers
 There are serial drivers compatible with Mac, Windows, Linux and Android
+
 Install serial drivers located in "Documentation->Feather HUZZAH with ESP8266->Feather HUZZAH Serial Drivers" or download from:
 https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx
 
 ###Connecting with serial(for LUA programming)
 Connect Feather HUZZAH through USB-cable to your computer.
+
 Use a serial console app like CoolTerm (Mac) or Putty (Windows) or screen (linux).
+
 Connect to the serial port using the console app with 9600bps
+
 Press the RESET button on the HUZZAH to print out the welcome message on the serial console
 
 ###Connecting & programming with Arduino IDE
