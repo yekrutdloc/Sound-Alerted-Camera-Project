@@ -4,11 +4,10 @@
 ##Directory tree
 > The directory tree for this repo
 
+``` ruby
 .  
 |-- Documentation  
-    +-- Feather HUZZAH with ESP8266 #All documentation and "non-source code" files  
-
-
+|    +-- Feather HUZZAH with ESP8266 #All documentation and "non-source code" files  
 |        |  
 |        +-- Feather HUZZAH Serial Drivers #Mac, Windows, Linux or Android serial drivers for Feather HUZZAH  
 |+-- Code		#Contains all source- & test codes for the project  
@@ -19,6 +18,7 @@
 |    +-- HUZZAH		#Source code for Feather HUZZAH ESP8266  
 |        |  
 |        +-- Hardware Test Codes #Projects for testing hardware  
+```
 
 ##Setting up Feather HUZZAH w/ ESP8266
 > Feather HUZZAH w/ ESP8266 is used to read the noise levels in an area and pinpoint loud sounds - which then will control the PTZ camera through HTTP-requests.
