@@ -52,11 +52,11 @@ https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx
 ###Connecting to camera using Ethernet cable
 1. Connect Ethernet cable between camera(AXIS PTZ Q6115-E or compatible) and PoE module(PoE port), this supplises the network connection+power  
 2. Connect PoE module to 230V and an Ethernet cable between PoE port(non PoE port) to a router or computer ethernet port  
-3. Local network options for computer needed to connect to camera:  
+3. Local network options for the computer connecting to the camera:  
     * IP: 192.168.0.10  
     * Subnet: 255.255.255.0  
     * Router: 192.168.0.20  
-4. Using a web browser connect to: "192.168.0.20". If there is a popup screen asking for login information, then check camera manual for factory user login information.
+4. Using a web browser connect to: "http://192.168.0.20/". If there is a popup screen asking for login information, then check camera manual for factory user login information.
 5. Camera has to be configured to accept anonymous users(should be able to be configured in cameras browser configurator)  
 6. Check if PTZ is available: http://192.168.0.20/axis-cgi/param.cgi?action=list&group=Properties.PTZ.PTZ  
 7. Verify that PTZ is enabled on channel 1: http://192.168.0.20/axis-cgi/com/ptz.cgi?info=1&camera=1
