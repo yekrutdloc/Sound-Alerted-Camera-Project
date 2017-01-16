@@ -6,15 +6,16 @@
 
 ``` ruby
 .  
-|-- Documentation  
+|+-- Documentation  
+|    |
 |    +-- Feather HUZZAH w/ ESP8266 #All documentation and "non-source code" files  
 |        |  
 |        +-- Feather HUZZAH Serial Drivers #Mac, Windows, Linux or Android serial drivers for Feather HUZZAH  
 |+-- Code #Contains all source- & test codes for the project  
 |    |  
 |    +-- Arduino Library #Libraries for Arduino IDE needed to compile source code   
-|    |    |  
-|    |    +-- ESP8266Scheduler #Scheduler for tasks on Arduino IDE for Feather HUZZAH ESP8266  
+|    |   |  
+|    |   +-- ESP8266Scheduler #Scheduler for tasks on Arduino IDE for Feather HUZZAH ESP8266  
 |    +-- HUZZAH	 #Source code for Feather HUZZAH ESP8266  
 |        |  
 |        +-- Hardware Test Codes #Projects for testing hardware  
@@ -57,3 +58,6 @@ https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx
     * Router: 192.168.0.20  
 4. Using a web browser connect to: "192.168.0.20". If there is a popup screen asking for login information, then check camera manual for factory user login information.
 5. Camera has to be configured to accept anonymous users(should be able to be configured in cameras browser configurator)  
+6. Check if PTZ is available: http://192.168.0.20/axis-cgi/param.cgi?action=list&group=Properties.PTZ.PTZ  
+7. Verify that PTZ is enabled on channel 1: http://192.168.0.20/axis-cgi/com/ptz.cgi?info=1&camera=1
+8. Pan camera=1 to the right, 10 degrees: http://192.168.0.20/axis-cgi/com/ptz.cgi?rpan=10&camera=1
