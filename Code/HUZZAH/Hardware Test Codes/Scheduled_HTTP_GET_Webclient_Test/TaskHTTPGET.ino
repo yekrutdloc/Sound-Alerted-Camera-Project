@@ -12,6 +12,17 @@ class HTTPGETTask : public Task {
     void setup() {
       Serial.print("Starting HTTP GET Request client");
       delay(500);
+
+      // Connecting to the WiFi network
+      Serial.println();
+      Serial.println();
+      Serial.print("Connecting to ");
+      Serial.println(ssid);
+      WiFi.begin(ssid, password);
+      while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
     }
 
     void loop()  {
