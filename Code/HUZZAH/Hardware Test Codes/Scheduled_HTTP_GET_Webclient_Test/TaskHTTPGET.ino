@@ -55,6 +55,7 @@ class HTTPGETTask : public Task {
       while (client.available()) {
         String line = client.readStringUntil('\r');
         Serial.print(line);
+        delay(10);
       }
 
       Serial.println();
