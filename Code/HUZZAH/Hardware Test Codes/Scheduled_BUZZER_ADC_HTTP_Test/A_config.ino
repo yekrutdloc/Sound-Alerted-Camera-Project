@@ -14,3 +14,11 @@
 const char* ssid = "Router";
 const char* password = "kungarike";
 const char* host = "wifitest.adafruit.com";
+const uint8_t wifiConnectTimer = 10; // The amount of seconds to wait untill giving up connecting to Wi-Fi
+
+/*
+  ---------------------------------------------------------------
+  Pin-outs
+  ---------------------------------------------------------------
+*/
+const uint8_t buzzerPin = 14; // pin to buzzer
