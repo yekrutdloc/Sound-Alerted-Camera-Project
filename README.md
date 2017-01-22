@@ -18,7 +18,7 @@
 |    |   +-- ESP8266Scheduler #Scheduler for tasks on Arduino IDE for Feather HUZZAH ESP8266  
 |    +-- HUZZAH	 #Source code for Feather HUZZAH ESP8266  
 |        |  
-|        +-- Hardware Test Codes #Projects for testing hardware  
+|        +-- Test codes #Projects for testing Feather HUZZAH  
 ```
 
 ##Setting up Feather HUZZAH w/ ESP8266
@@ -47,7 +47,7 @@ https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx
 10. Select "115200bps" in "baud rate"  
 11. Select correct serial port  
 12. Ready to upload code!  
-13. Recommended to try a test code in "Code->HUZZAH->Hardware Test Codes" to verify that everything is working  
+13. Recommended to try a test code in "Code->HUZZAH->Test codes" to verify that everything is working  
 
 ###Connecting to camera using Ethernet cable
 1. Connect Ethernet cable between camera(AXIS PTZ Q6115-E or compatible) and PoE module(PoE port), this supplises the network connection+power  
