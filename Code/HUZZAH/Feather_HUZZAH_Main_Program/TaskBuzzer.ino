@@ -18,13 +18,22 @@
 class BuzzerTask : public Task {
   protected:
     void setup() {
-      Serial.println(F("Started buzzer Task"));
+      Serial.println(F("Started buzzer task"));
       // initialize buzzer as an output.
       pinMode(buzzerPin, OUTPUT);
       taskBuzzerStarted = 1; // Set startup flag
     }
 
     void loop() {
+      //Loud Noise Detected
+      if (doLoudNoiseDetected) {
+        Serial.println(F("Doing loud noise detected chime"));
+        digitalWrite(buzzerPin, HIGH);
+        delay(50);
+        digitalWrite(buzzerPin, LOW);
+        doLoudNoiseDetected = 0;
+      }
+      
       //Startup chime
       if (doStartupChime) {
         Serial.println(F("Doing startup chime"));

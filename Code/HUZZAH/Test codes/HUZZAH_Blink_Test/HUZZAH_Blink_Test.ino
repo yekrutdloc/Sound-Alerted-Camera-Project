@@ -25,6 +25,11 @@
  This example code is in the public domain.
 
  http://www.arduino.cc/en/Tutorial/BlinkWithoutDelay
+
+
+
+ NOTE FOR HUZZAH FOR THE LED_BUILTIN, LED TOGGLE IS INVERTED, HIGH IS OFF, LOW IS ON
+HUZZAH has two LEDs, red LED on pin 0, and blue LED on pin 2
  */
 
 // constants won't change. Used here to set a pin number :
@@ -60,9 +65,9 @@ void loop() {
 
     // if the LED is off turn it on and vice-versa:
     if (ledState == LOW) {
-      ledState = HIGH;
+      ledState = HIGH; //HIGH=OFF
     } else {
-      ledState = LOW;
+      ledState = LOW; //LOW=ON
     }
 
     // set the LED with the ledState of the variable:

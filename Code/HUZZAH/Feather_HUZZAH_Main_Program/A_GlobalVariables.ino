@@ -30,4 +30,12 @@ bool sendGETRequestPing = 0; // tell HTTPGET task to send a GETRequest
 // Buzzer
 bool doStartupChime = 0; // Tell buzzer to do startup chime
 bool doWifiNotFoundChime = 0; // Tell buzzer to do "Wi-Fi not found" chime
+bool doLoudNoiseDetected = 0; // Tell buzzer to do "Loud Noise Detected" chime
+
+/*
+  ---------------------------------------------------------------
+  ADC task
+  ---------------------------------------------------------------
+*/
+uint16_t micValue = 0; // The filtered(or unfiltered) value from the ADC, which is connected to the microphone
 

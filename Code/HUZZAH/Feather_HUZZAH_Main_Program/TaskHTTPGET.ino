@@ -22,12 +22,12 @@ class HTTPGETTask : public Task {
       Serial.println(ssid);
       WiFi.begin(ssid, password);
       uint8_t wifiCounter = 0;
-      while (WiFi.status() != WL_CONNECTED && wifiCounter < wifiConnectTimer) {
+      while (WiFi.status() != WL_CONNECTED && wifiCounter < wifiConnectTimeout) {
         delay(1000);
         Serial.print(F("."));
         wifiCounter++;
       }
-      if (wifiCounter == wifiConnectTimer) { // Wi-Fi could not connect
+      if (wifiCounter == wifiConnectTimeout) { // Wi-Fi could not connect
         Serial.println(F("Wi-Fi connection timeout. Could not connect to Wi-Fi"));
         doWifiNotFoundChime = 1; // Do the wi-fi not found buzzer chime, showing that Wi-Fi connection has failed!
       } else { // do normal startup operation
