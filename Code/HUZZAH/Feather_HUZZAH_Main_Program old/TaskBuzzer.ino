@@ -18,57 +18,52 @@
 class BuzzerTask : public Task {
   protected:
     void setup() {
-      // initialize buzzer and LED as an output.
+      Serial.println(F("Started buzzer task"));
+      // initialize buzzer as an output.
       pinMode(buzzerPin, OUTPUT);
-      digitalWrite(buzzerPin, LOW); // Turn off Buzzer
-      Serial.println(F("Started Buzzer Task"));
-      delay(100); // Some time for serial buffer to empty
       taskBuzzerStarted = 1; // Set startup flag
     }
 
     void loop() {
       //Loud Noise Detected
       if (doLoudNoiseDetected) {
-        Serial.println(F("[BUZZER] Running loud noise detected -chime"));
-        setBuzzerBlueLED(HIGH);
+        Serial.println(F("Doing loud noise detected chime"));
+        digitalWrite(buzzerPin, HIGH);
         delay(50);
-        setBuzzerBlueLED(LOW);
+        digitalWrite(buzzerPin, LOW);
         doLoudNoiseDetected = 0;
       }
-
+      
       //Startup chime
       if (doStartupChime) {
-        Serial.println(F("[BUZZER] Running startup -chime"));
-        setBuzzerBlueLED(HIGH);
+        Serial.println(F("Doing startup chime"));
+        digitalWrite(buzzerPin, HIGH);
         delay(50);
-        setBuzzerBlueLED(LOW);
+        digitalWrite(buzzerPin, LOW);
         delay(50);
-        setBuzzerBlueLED(HIGH);
+        digitalWrite(buzzerPin, HIGH);
         delay(50);
-        setBuzzerBlueLED(LOW);
+        digitalWrite(buzzerPin, LOW);
         delay(50);
-        setBuzzerBlueLED(HIGH);
+        digitalWrite(buzzerPin, HIGH);
         delay(50);
-        setBuzzerBlueLED(LOW);
+        digitalWrite(buzzerPin, LOW);
         delay(50);
         doStartupChime = 0;
       }
 
       //Wi-Fi-not-found chime
       if (doWifiNotFoundChime) {
-        Serial.println(F("[BUZZER] Running Wi-Fi-not-found -chime"));
-        setBuzzerBlueLED(HIGH);
+        Serial.println(F("Doing Wi-Fi-not-found chime"));
+        digitalWrite(buzzerPin, HIGH);
         delay(3000);
-        setBuzzerBlueLED(LOW);
+        digitalWrite(buzzerPin, LOW);
         doWifiNotFoundChime = 0;
       }
 
-      delayMicroseconds(buzzerExeutionFrequency); //How often to check if buzzer should run
+      delay(500);
     }
-    void setBuzzerBlueLED(bool status) {
-      digitalWrite(buzzerPin, status);
-      digitalWrite(ledRedPin, status);
-    }
+
   private:
 
 } buzzer_task;

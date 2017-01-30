@@ -8,8 +8,6 @@ const char* ssid     = "Router";
 const char* password = "kungarike";
 const char* host = "188.166.72.14";
 
-String data = "";
-
 void setup() {
   Serial.begin(115200);
   delay(100);
@@ -52,23 +50,22 @@ void loop() {
   }
 
   // We now create a URI for the request
-//  String url = "/database";
-//  Serial.print("Requesting URL: ");
-//  Serial.println(url);
+  //  String url = "/database";
+  //  Serial.print("Requesting URL: ");
+  //  Serial.println(url);
 
 
-  String verified_as_crash = "UNVERIFIED";
-  String cam_id = "1";
-  String location = "55.610823,12.9928";
-  String video_link = "http://videolink.mp4";
+  const String cam_id = "1";
+  const String location = "55.610823,12.9928";
+  const String video_link = "http://videolink.mp4";
 
-  data = "log_id=NULL&time_date=NULL&verified_as_crash=" + verified_as_crash + "&cam_id=" + cam_id + "&location=" + location + "&video_link=" + video_link;
+  const String data = "&cam_id=" + cam_id + "&location=" + location + "&video_link=" + video_link;
 
   // This will send the request to the server
-  client.println("POST /database/add.php HTTP/1.1");
-  client.println("Host: 188.166.72.14"); // SERVER ADDRESS HERE TOO
-  client.println("Content-Type: application/x-www-form-urlencoded");
-  client.print("Content-Length: ");
+  client.println(F("POST /database/add.php HTTP/1.1"));
+  client.println(F("Host: 188.166.72.14")); // SERVER ADDRESS HERE TOO
+  client.println(F("Content-Type: application/x-www-form-urlencoded"));
+  client.print(F("Content-Length: "));
   client.println(data.length());
   client.println();
   client.print(data);

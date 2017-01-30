@@ -8,42 +8,44 @@
 
 /*
   ---------------------------------------------------------------
-  HTTP/Wi-Fi settings
+  Wi-Fi settings
   ---------------------------------------------------------------
 */
 const char* ssid = "Router";
 const char* password = "kungarike";
+const char* host = "wifitest.adafruit.com";
 const uint8_t wifiConnectTimeout = 10; // The amount of seconds to wait until giving up connecting to Wi-Fi
-const char* testingHost = "wifitest.adafruit.com";
-const char* databaseIP = "188.166.72.14";
-const String cam_id = "1";
-const String location = "55.610823,12.9928";
 
 /*
   ---------------------------------------------------------------
   Pin-outs
   ---------------------------------------------------------------
 */
-const uint8_t ledRedPin = 0; // pin to the red LED, used to show if HUZZAH program is running or not, also used in sync with buzzer
-const uint8_t ledBluePin = 2; // pin to the blue LED. DON't USE!(dont pinmode!), used for checking Wi-Fi traffic!!
+const uint8_t ledRedPin = 0; // pin to the red LED
+const uint8_t ledBluePin = 2; // pin to the blue LED
 const uint8_t buzzerPin = 14; // pin to buzzer
-const uint8_t sensorPinA = 12; // pin to Sound sensor A
-const uint8_t sensorPinB = 13; // pin to Sound sensor B
+const uint8_t micAdcPin = A0; // pin to ADC/microphone
 
 /*
   ---------------------------------------------------------------
-   Execution frequency in microseonds(does not mean sample time and does not account for execution times).
-   So if a task has an exeution frequency of 10ms, and the task takes 5ms to execute one loop of its code,
+   Execution frequency(does not account for execution times).
+   So if a task has an exeution frequency of 10ms, and the task takes 5ms to execute one loop of its code, 
    then the total sample time is 15ms(10+5).
   ---------------------------------------------------------------
 */
-const uint16_t soundSensorExeutionFrequency = 1000; // How often to check if both sound sensors has triggered
-const uint16_t httpExeutionFrequency = 1000; // How often to check if a HTTP request is scheduled to run
-const uint16_t buzzerExeutionFrequency = 1000; // How often to check if a HTTP request is scheduled to run
+const uint16_t adcExeutionFrequency = 10; // ADC
 
 /*
   ---------------------------------------------------------------
-  Sound sensors
+  ADC-task
   ---------------------------------------------------------------
 */
+// How often to print out the adc value. Because of how fast we poll the mic, when we try to print out every
+// ADC value it slows down the overall program. In some 
+// instances the sample rate of the task slows down 500% when printing the mic value vs when not.
+// If this value is set to 3, then we print out every third value we poll
+const uint8_t adcSerialPrintFrequency = 10; 
+
+const uint16_t micVolumeThreshold = 550;// Threshold the adc value should reach past when a loud sound occurs
+const uint8_t adcFilterBufferSize = 3; // Size of the moving average filtering buffer
 
