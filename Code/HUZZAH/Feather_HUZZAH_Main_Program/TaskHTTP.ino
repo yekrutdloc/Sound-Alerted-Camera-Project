@@ -60,7 +60,7 @@ class HTTPTask : public Task {
           Serial.println(F("Connected!"));
         }
 
-        // CUSTOM STRINGS TO SEND
+        // DELETE THIS LATER
         const String video_link = F("http://videolink.mp4");
 
         // Create the data to send as one String
@@ -69,7 +69,8 @@ class HTTPTask : public Task {
         Serial.print(F("Sending information to database..."));
         // Start sending the POST request to the server
         client.println(F("POST /database/add.php HTTP/1.1"));
-        client.println(F("Host: 188.166.72.14")); // SERVER ADDRESS HERE TOO
+        client.print(F("Host: "));
+        client.println(databaseIP);
         client.println(F("Content-Type: application/x-www-form-urlencoded"));
         client.print(F("Content-Length: "));
         client.println(data.length());
