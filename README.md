@@ -17,8 +17,13 @@
 |    |   |  
 |    |   +-- ESP8266Scheduler #Scheduler for tasks on Arduino IDE for Feather HUZZAH ESP8266  
 |    +-- HUZZAH	 #Source code for Feather HUZZAH ESP8266  
-|        |  
-|        +-- Test codes #Projects for testing Feather HUZZAH  
+|    |   |  
+|    |   +-- Feather_HUZZAH_Main_Program #Main program for Feather HUZZAH  
+|    |   |  
+|    |   +-- Test codes #Projects for testing Feather HUZZAH  
+|    +-- Database_middleman	 #Source code middleman-server running in PHP, which talks to HUZZAH and database
+|    |
+|    +-- Website_log_viewer	 #Source code the webbased log viewer
 ```
 
 ##Setting up Feather HUZZAH w/ ESP8266
