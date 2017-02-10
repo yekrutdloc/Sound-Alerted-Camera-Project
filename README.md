@@ -61,3 +61,6 @@ https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx
 6. Check if PTZ is available: http://192.168.0.20/axis-cgi/param.cgi?action=list&group=Properties.PTZ.PTZ  
 7. Verify that PTZ is enabled on channel 1: http://192.168.0.20/axis-cgi/com/ptz.cgi?info=1&camera=1
 8. Pan camera=1 to the right, 10 degrees: http://192.168.0.20/axis-cgi/com/ptz.cgi?rpan=10&camera=1
+
+###Parameter list for VAPIX
+Available at http://192.168.11.20/axis-cgi/param.cgi?action=list&usergroup=admin
