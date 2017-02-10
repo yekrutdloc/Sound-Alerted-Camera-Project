@@ -82,14 +82,16 @@ class HTTPTask : public Task {
         Serial.print(F("Waiting for response from server..."));
         while (!client.available()) delay(1);// Wait for server to respond
         Serial.println(F("Response received:"));
+        Serial.println(F("--------------------------------------------"));
         Serial.println(F(""));
         delay(100);// Allow network buffer to fill
         while (client.available()) {
           String line = client.readStringUntil('\r');
           Serial.print(line);
         }
+        Serial.println(F("--------------------------------------------"));
         Serial.println(F("Response ended."));
-        Serial.println(F("HTTP task done."));
+        Serial.println(F("HTTP-task done."));
 
         sendDatabaseInfo = 0; // Clear
       }

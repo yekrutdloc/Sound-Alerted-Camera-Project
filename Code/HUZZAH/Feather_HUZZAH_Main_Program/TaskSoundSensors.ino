@@ -80,11 +80,11 @@ class SoundSensorsTask : public Task {
       delayMicroseconds(soundSensorExeutionFrequency); // Loop delay
 
       //TESTING
-      delay(5000);// wait 5 seconds
-      sendDatabaseInfo = 1; // test database
-      while(1){ // Stop program
-        delay(1000);
-      }
+//      delay(5000);// wait 5 seconds
+//      sendDatabaseInfo = 1; // test database
+//      while (1) { // Stop program
+//        delay(1000);
+//      }
     }
   public:
     /*
