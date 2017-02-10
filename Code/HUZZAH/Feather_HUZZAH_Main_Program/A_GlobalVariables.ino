@@ -40,3 +40,4 @@ bool doLoudNoiseDetected = 0; // Tell buzzer to do "Loud Noise Detected" chime
 */
 unsigned long sensorASoundDetected = 0; // Has a value above 0 when a sound is detected
 unsigned long sensorBSoundDetected = 0; // Has a value above 0 when a sound is detected
+int8_t degreeOfSound = 0;

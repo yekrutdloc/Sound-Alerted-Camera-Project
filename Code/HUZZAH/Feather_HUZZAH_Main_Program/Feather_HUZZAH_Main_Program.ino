@@ -30,6 +30,8 @@
 #include <Scheduler.h>
 //Needed for HTTP GET Webclient
 #include <ESP8266WiFi.h>
+//Needed for math operations
+#include <math.h>
 
 /*
   ---------------------------------------------------------------

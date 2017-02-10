@@ -11,10 +11,11 @@
   HTTP/Wi-Fi settings
   ---------------------------------------------------------------
 */
-const char* ssid = "Router";
-const char* password = "kungarike";
+const char* ssid = "mahproj";
+const char* password = "maffia14";
 const uint8_t wifiConnectTimeout = 10; // The amount of seconds to wait until giving up connecting to Wi-Fi
 const char* testingHost = "wifitest.adafruit.com";
+const char* cameraIP = "192.168.11.20";
 const char* databaseIP = "188.166.72.14";
 const String cam_id = "1";
 const String location = "55.610823,12.9928";

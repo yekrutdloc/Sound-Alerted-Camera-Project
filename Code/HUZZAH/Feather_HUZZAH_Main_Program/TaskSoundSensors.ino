@@ -51,40 +51,62 @@ class SoundSensorsTask : public Task {
       // If both Sensor A and B detected a sound then run calculations
       if ((sensorASoundDetected > 0) && (sensorBSoundDetected > 0)) {
 
-        // Calculate time difference
-        unsigned long timeDifference = 0;
-        if (sensorASoundDetected > sensorBSoundDetected) {
-          timeDifference = sensorASoundDetected - sensorBSoundDetected;
-        } else {
-          timeDifference = sensorBSoundDetected - sensorASoundDetected;
+        //Comment out the previous functions to calculate time difference
+        if (sensorASoundDetected > 0 && sensorBSoundDetected > 0) {
+          // Calculate time difference
+          int32_t timeDifference = sensorASoundDetected - sensorBSoundDetected; // If difference + then B first, if - then A first
+          sensorASoundDetected = 0;
+          sensorBSoundDetected = 0;
+
+          //Limit max degree
+          double theta = 0;;
+          if (timeDifference > 453) {
+            degreeOfSound = 80;
+          }  else if (timeDifference < -453) {
+            degreeOfSound = -80;
+          } else {
+            theta = asin((double)((timeDifference * pow(10, -6)) * soundSpeed) / distance);
+            degreeOfSound = (theta * 180) / M_PI;
+          }
+
+          Serial.print("SoundSpeed: ");
+          Serial.print(soundSpeed);
+          Serial.print(" Distance: ");
+          Serial.print(distance);
+          Serial.print(" Diff: ");
+          Serial.print(timeDifference);
+          Serial.print(" Theta: ");
+          Serial.print(theta);
+          Serial.print(" Angle: ");
+          Serial.println(degreeOfSound);
+
+          delay(500);
         }
-
-        // Print out that we detected a noise on both sensors and print out the time difference.
-        Serial.print(F("NEW NOISE, TIME DIFFERENCE: "));
-        Serial.println(timeDifference);
-
-        // TO-DO: Calculate angle here
 
         doLoudNoiseDetected = 1; // Tell buzzer to do the "loud noise detected" chime
         //while (doLoudNoiseDetected) delay(1); // Wait for "loud noise detected" chime to finish
 
         //TO-DO Send data to database
         //sendDatabaseInfo = 1;
-        
+
         // Clear detection-variables
         sensorASoundDetected = 0;
         sensorBSoundDetected = 0;
+
+        // Send angle to camera, wait for HTTP to finish
+        sendDatabaseInfo = 1;
+        while (sendDatabaseInfo) delay(1000);
 
         // TO-DO: Pause for several seconds(minutes?) untill checking for new car crash!
       }
       delayMicroseconds(soundSensorExeutionFrequency); // Loop delay
 
       //TESTING
-//      delay(5000);// wait 5 seconds
-//      sendDatabaseInfo = 1; // test database
-//      while (1) { // Stop program
-//        delay(1000);
-//      }
+      //      delay(5000);// wait 5 seconds
+      //      sendDatabaseInfo = 1; // test database
+      //      while (1) { // Stop program
+      //        delay(1000);
+      //      }
     }
   public:
     /*
@@ -112,6 +134,8 @@ class SoundSensorsTask : public Task {
       sensorBSoundDetected = micros(); // Store current time(program runtime)
     }
   private:
+    const double soundSpeed = 330;
+    const double distance = 0.15;
 } soundsensors_task;
 
 
