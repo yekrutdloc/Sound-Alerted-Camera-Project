@@ -19,6 +19,7 @@ const char* cameraIP = "192.168.11.20";
 const char* databaseIP = "188.166.72.14";
 const String cam_id = "1";
 const String location = "55.610823,12.9928";
+const String base64auth = "cm9vdDpwYXNz";
 
 /*
   ---------------------------------------------------------------
