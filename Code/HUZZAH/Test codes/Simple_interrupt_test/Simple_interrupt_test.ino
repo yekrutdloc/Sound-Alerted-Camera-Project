@@ -97,7 +97,7 @@ void loop() {
     Serial.print(" Angle: ");
     Serial.println(degree);
 
-    delay(500);
+    delay(1500);
   }
 }
 

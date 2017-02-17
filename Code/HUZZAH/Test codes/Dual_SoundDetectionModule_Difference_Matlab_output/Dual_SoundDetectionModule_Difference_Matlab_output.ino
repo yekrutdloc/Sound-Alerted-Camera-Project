@@ -16,8 +16,8 @@
 
 
 int DA = A0; // Pin for Analog Output - AO
-//const uint8_t ledRedPin = 0; // pin to the red LED
-//const uint8_t ledBluePin = 2; // pin to the blue LED
+const uint8_t ledRedPin = 0; // pin to the red LED
+const uint8_t ledBluePin = 2; // pin to the blue LED
 int led = ledBluePin;
 int threshold = 560; //Change this
 int adcValue = 0;
