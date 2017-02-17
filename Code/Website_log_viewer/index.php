@@ -80,29 +80,7 @@ if( isset( $_GET["caller"] ) && $_GET["caller"] == "somevalue" ) {
 }
 ?>
 
-<script>    
-function openTab(evt, tabName) {
-    // Declare all variables
-    var i, tabcontent, tablinks;
 
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-
-    // Show the current tab, and add an "active" class to the link that opened the tab
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
-} 
-document.getElementById("defaultOpen").click();
-</script>
 
 <html>
 <head>
@@ -191,7 +169,7 @@ document.getElementById("defaultOpen").click();
         div.tab {
             overflow: hidden;
             border: 1px solid #ccc;
-            background-color: #f1f1f1;
+            background-color: #fff;
         }
 
         /* Style the links inside the tab */
@@ -208,12 +186,12 @@ document.getElementById("defaultOpen").click();
 
         /* Change background color of links on hover */
         div.tab a:hover {
-            background-color: #ddd;
+            background-color: #f4fbff;
         }
 
         /* Create an active/current tablink class */
         div.tab a:focus, .active {
-            background-color: #ccc;
+            background-color: #508abb;
         }
 
         /* Style the tab content */
@@ -227,12 +205,46 @@ document.getElementById("defaultOpen").click();
 </head>
 <body>
     
+<script>
+    document.addEventListener('DOMContentLoaded',function(){
+        document.getElementById("defaultOpen").click();
+    });
+</script>
+    
+    <script>
+        
+        function openTab(evt, tabName) {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add an "active" class to the link that opened the tab
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        } 
+        
+       // document.getElementById("defaultOpen").click();
+        
+    </script>
+    
 	<h1>Q6115-E DATABASE FOR REGISTERED CRASH EVENTS</h1>
     
     <div class="tab">
     
-        <a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'UNVERIFIED')" id="defaultOpen">UNVERIFIED</a>
-        <a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'LOGS')">LOGS</a>
+        <a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'UNVERIFIED')" id="defaultOpen" >UNVERIFIED</a>
+        
+        <a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'LOGS')" >LOGS</a>
     
     </div>
     
@@ -264,7 +276,7 @@ document.getElementById("defaultOpen").click();
                         '<tr>
                             <td>'.$row['log_id'].'</td>
 				            <td><video width="320" height="180" controls src="'.$row['video_link'].'"></video></td>
-                            <td><img height="180" width="320" src="'.$row['img_link'].'"></td>
+                            <td><a href="'.$row['img_link'].'"><img height="180" width="320" src="'.$row['img_link'].'"></a></td>
 				            <td><a href="http://maps.google.com/maps?q='.$row['location'].'">Location</a></td>
 				            <td>'.$row['time_date'] . '</td>
                             <td>'.$row['verified_as_crash'].'</td>
