@@ -1,8 +1,10 @@
 <?php
 
+//Error reporting for debug
 ini_set('display_errors','On');
 error_reporting(E_ALL);
 
+//Function to debug php code
 function display_debug($key, $value, $debug=false) {
   if($debug){
     echo ''.$key . " = ";
@@ -40,11 +42,14 @@ if (!$query) {
 }
 
 $test = 0;
+
+//Fill array with result from query
 $arrayVals = array();
 while ($row = mysqli_fetch_array($query)){
     $arrayVals[] = $row;
 }
 
+//Check for clicks on buttons and send result to database
 if(isset($_GET['update']))
 {
     $value = $_GET['update'];
@@ -64,15 +69,15 @@ if(isset($_GET['update']))
     
    
     mysqli_close($conn);
-    //echo "<meta http-equiv='refresh' content='0'>";
+    
+    //Refresh page after load
     header("Location: http://188.166.72.14/index.php?caller=somevalue");
-    //header('Location: '.$_SERVER['REQUEST_URI']);
-    //$value = $_POST['name'];
-    //$id = $_POST['id'];
+
     
     
 }    
 
+// Used for refreshing page
 if( isset( $_GET["caller"] ) && $_GET["caller"] == "somevalue" ) {
     // I'm using Location because this will remove the get value
     header( "Location: index.php" );
@@ -204,15 +209,17 @@ if( isset( $_GET["caller"] ) && $_GET["caller"] == "somevalue" ) {
 	</style>
 </head>
 <body>
-    
+
+
 <script>
+    // Used for autoclicking on the default tab
     document.addEventListener('DOMContentLoaded',function(){
         document.getElementById("defaultOpen").click();
     });
 </script>
     
     <script>
-        
+        // Function for tab functionality
         function openTab(evt, tabName) {
             // Declare all variables
             var i, tabcontent, tablinks;
