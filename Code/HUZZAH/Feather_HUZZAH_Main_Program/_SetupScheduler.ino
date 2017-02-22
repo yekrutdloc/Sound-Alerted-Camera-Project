@@ -13,15 +13,15 @@ void setup() {
   digitalWrite(ledRedPin, LOW); // Turn on LED(LED is inverted, so HIGH is off)
 
   // Initialize Serial
-  delay(100); // Wait to start serial untill bootloader serial noise stops
-  Serial.begin(115200);
+  delay(2000); // Wait some time, in order to allow ESP8266 to boot
+  Serial.begin(250000);
   Serial.println("");
   Serial.println("");
   Serial.println("Starting scheduler...");
   delay(100); // Some time for serial buffer to empty
 
   // Declare tasks
-  Scheduler.start(&buzzer_task); // Declare Buzzer task
+  //Scheduler.start(&buzzer_task); // Declare Buzzer task
   Scheduler.start(&soundsensors_task); // Declare SoundSensors task
   Scheduler.start(&http_task); // Declare HTTP webclient task
 
@@ -42,6 +42,12 @@ void sensorAInterruptWrap() {
 }
 void sensorBInterruptWrap() {
   soundSensorTask.sensorBInterrupt();
+}
+void pauseInterruptsWrap() {
+  soundSensorTask.pauseInterrupts();
+}
+void unpauseInterruptsWrap() {
+  soundSensorTask.unpauseInterrupts();
 }
 /*
   ---------------------------------------------------------------

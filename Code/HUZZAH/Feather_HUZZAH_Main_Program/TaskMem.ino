@@ -11,10 +11,10 @@ class MemTask : public Task {
     }
 
     void loop() {
+      yield(); // Allow other essential backgrund tasks to run
+      delay(10000);
       Serial.print(F("Free Heap: "));
       Serial.print(ESP.getFreeHeap());
       Serial.println(F(" bytes"));
-
-      delay(10000);
     }
 } mem_task;

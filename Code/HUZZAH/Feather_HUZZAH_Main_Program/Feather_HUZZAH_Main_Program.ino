@@ -43,5 +43,6 @@ void setup();
 void loop();
 void sensorAInterruptWrap();
 void sensorBInterruptWrap();
-
+void pauseInterruptsWrap();
+void unpauseInterruptsWrap();
 

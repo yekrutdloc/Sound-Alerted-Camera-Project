@@ -25,15 +25,14 @@ class SoundSensorsTask : public Task {
       ---------------------------------------------------------------
     */
     void setup() {
-      while (!taskBuzzerStarted) delay(100); // Wait for buzzer task to start
+      //while (!taskBuzzerStarted) delay(100); // Wait for buzzer task to start
 
       // Set sensors-pins as INPUT_PULLUP
-      pinMode(sensorPinA, INPUT_PULLUP);
-      pinMode(sensorPinB, INPUT_PULLUP);
+      pinMode(sensorPinA, INPUT);
+      pinMode(sensorPinB, INPUT);
 
       // Attach interrupts to pins
-      attachInterrupt(digitalPinToInterrupt(sensorPinA), ::sensorAInterruptWrap, RISING); //MAYBE CHANGE IN FUTURE TO RISING OR FALLING
-      attachInterrupt(digitalPinToInterrupt(sensorPinB), ::sensorBInterruptWrap, RISING); //MAYBE CHANGE IN FUTURE TO RISING OR FALLING
+      unpauseInterrupts();
 
       Serial.println(F("Started Sound Sensor Task"));
 
@@ -48,13 +47,16 @@ class SoundSensorsTask : public Task {
       ---------------------------------------------------------------
     */
     void loop()  {
+      yield(); // Allow other essential backgrund tasks to run
+      delayMicroseconds(soundSensorExeutionFrequency); // Loop delay
+
       // If both Sensor A and B detected a sound then run calculations
       if ((sensorASoundDetected > 0) && (sensorBSoundDetected > 0)) {
 
         //Comment out the previous functions to calculate time difference
         if (sensorASoundDetected > 0 && sensorBSoundDetected > 0) {
           // Calculate time difference
-          int32_t timeDifference = sensorASoundDetected - sensorBSoundDetected; // If difference + then B first, if - then A first
+          int32_t timeDifference = sensorASoundDetected - sensorBSoundDetected + micOffset; // If difference + then B first, if - then A first
           sensorASoundDetected = 0;
           sensorBSoundDetected = 0;
 
@@ -83,11 +85,8 @@ class SoundSensorsTask : public Task {
           delay(500);
         }
 
-        doLoudNoiseDetected = 1; // Tell buzzer to do the "loud noise detected" chime
+        //doLoudNoiseDetected = 1; // Tell buzzer to do the "loud noise detected" chime
         //while (doLoudNoiseDetected) delay(1); // Wait for "loud noise detected" chime to finish
-
-        //TO-DO Send data to database
-        //sendDatabaseInfo = 1;
 
         // Clear detection-variables
         sensorASoundDetected = 0;
@@ -99,14 +98,6 @@ class SoundSensorsTask : public Task {
 
         // TO-DO: Pause for several seconds(minutes?) untill checking for new car crash!
       }
-      delayMicroseconds(soundSensorExeutionFrequency); // Loop delay
-
-      //TESTING
-      //      delay(5000);// wait 5 seconds
-      //      sendDatabaseInfo = 1; // test database
-      //      while (1) { // Stop program
-      //        delay(1000);
-      //      }
     }
   public:
     /*
@@ -120,6 +111,7 @@ class SoundSensorsTask : public Task {
     */
     void sensorAInterrupt() {
       sensorASoundDetected = micros(); // Store current time(program runtime)
+      detachInterrupt(digitalPinToInterrupt(sensorPinA)); //MAYBE CHANGE IN FUTURE TO RISING OR FALLING
     }
     /*
       ---------------------------------------------------------------
@@ -132,6 +124,20 @@ class SoundSensorsTask : public Task {
     */
     void sensorBInterrupt() {
       sensorBSoundDetected = micros(); // Store current time(program runtime)
+      detachInterrupt(digitalPinToInterrupt(sensorPinB)); //MAYBE CHANGE IN FUTURE TO RISING OR FALLING
+    }
+
+    // Enable interrupts
+    void unpauseInterrupts() {
+      //Serial.println("Unpausing interrupts");
+      attachInterrupt(digitalPinToInterrupt(sensorPinA), ::sensorAInterruptWrap, RISING); //MAYBE CHANGE IN FUTURE TO RISING OR FALLING
+      attachInterrupt(digitalPinToInterrupt(sensorPinB), ::sensorBInterruptWrap, RISING); //MAYBE CHANGE IN FUTURE TO RISING OR FALLING
+    }
+    // Disable interrupts
+    void pauseInterrupts() {
+      //Serial.println("Pausing interrupts");
+      detachInterrupt(digitalPinToInterrupt(sensorPinA)); //MAYBE CHANGE IN FUTURE TO RISING OR FALLING
+      detachInterrupt(digitalPinToInterrupt(sensorPinB)); //MAYBE CHANGE IN FUTURE TO RISING OR FALLING
     }
   private:
     const double soundSpeed = 330;

@@ -15,28 +15,30 @@ const double distance = 0.15;
 const uint8_t sensorPinA = 12; // pin to Sound sensor A
 const uint8_t sensorPinB = 13; // pin to Sound sensor B
 
-unsigned long sensorASoundDetected = 0; // Has a value above 0 when a sound is detected
-unsigned long sensorBSoundDetected = 0; // Has a value above 0 when a sound is detected
-
+volatile unsigned long sensorASoundDetected = 0; // Has a value above 0 when a sound is detected
+volatile unsigned long sensorBSoundDetected = 0; // Has a value above 0 when a sound is detected
 
 void sensorAInterrupt() {
-  sensorASoundDetected = micros(); // Store current time(program runtime)
+  if (!sensorASoundDetected) {
+    sensorASoundDetected = micros(); // Store current time(program runtime)
+  }
 }
 void sensorBInterrupt() {
-  sensorBSoundDetected = micros(); // Store current time(program runtime)
+  if (!sensorBSoundDetected) {
+    sensorBSoundDetected = micros(); // Store current time(program runtime)
+  }
 }
 
 void setup() {
-  Serial.begin(115200);
-  delay(100); // Some time for serial buffer to empty
+  Serial.begin(250000);
+  delay(2000); // Some time for serial buffer to empty
 
   // put your setup code here, to run once:
-  pinMode(sensorPinA, INPUT_PULLUP);
-  pinMode(sensorPinB, INPUT_PULLUP);
+  pinMode(sensorPinA, INPUT);
+  pinMode(sensorPinB, INPUT);
 
   attachInterrupt(digitalPinToInterrupt(sensorPinA), sensorAInterrupt, RISING); //MAYBE CHANGE IN FUTURE TO RISING OR FALLING
   attachInterrupt(digitalPinToInterrupt(sensorPinB), sensorBInterrupt, RISING); //MAYBE CHANGE IN FUTURE TO RISING OR FALLING
-
 
   //  pinMode(LED_BUILTIN, OUTPUT);
 
@@ -67,10 +69,13 @@ void loop() {
 
   //Comment out the previous functions to calculate time difference
   if (sensorASoundDetected > 0 && sensorBSoundDetected > 0) {
+
     // Calculate time difference
-    int32_t timeDifference = sensorASoundDetected - sensorBSoundDetected; // If difference + then B first, if - then A first
-    sensorASoundDetected = 0;
-    sensorBSoundDetected = 0;
+    int32_t timeDifference = sensorASoundDetected - sensorBSoundDetected + 30; // If difference + then B first, if - then A first
+
+    //    if (timeDifference < -1000 || timeDifference > 1000) {
+    //      Serial.println("Error");
+    //    } else {
 
     double degree = 0;
     double theta = 0;
@@ -84,9 +89,10 @@ void loop() {
       degree = (theta * 180) / M_PI;
     }
 
-
-
-    Serial.print("SoundSpeed: ");
+    Serial.print(sensorASoundDetected);
+    Serial.print(" - ");
+    Serial.print(sensorBSoundDetected);
+    Serial.print(" SoundSpeed: ");
     Serial.print(soundSpeed);
     Serial.print(" Distance: ");
     Serial.print(distance);
@@ -97,8 +103,12 @@ void loop() {
     Serial.print(" Angle: ");
     Serial.println(degree);
 
-    delay(1500);
+    delay(3000);
+    sensorASoundDetected = 0;
+    sensorBSoundDetected = 0;
+    //    }
   }
+  delay(10);
 }
 
 

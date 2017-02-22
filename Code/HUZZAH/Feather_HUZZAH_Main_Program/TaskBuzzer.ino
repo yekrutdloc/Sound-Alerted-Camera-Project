@@ -62,7 +62,7 @@ class BuzzerTask : public Task {
         setBuzzerBlueLED(LOW);
         doWifiNotFoundChime = 0;
       }
-
+      yield(); // Allow other essential backgrund tasks to run
       delayMicroseconds(buzzerExeutionFrequency); //How often to check if buzzer should run
     }
     void setBuzzerBlueLED(bool status) {

@@ -18,7 +18,7 @@ const char* testingHost = "wifitest.adafruit.com";
 const char* cameraIP = "192.168.11.20";
 const char* databaseIP = "188.166.72.14";
 const String cam_id = "1";
-const String location = "55.610823,12.9928";
+const String location = "55.6071555,12.9997949";
 const String base64auth = "cm9vdDpwYXNz";
 
 /*
@@ -40,12 +40,13 @@ const uint8_t sensorPinB = 13; // pin to Sound sensor B
   ---------------------------------------------------------------
 */
 const uint16_t soundSensorExeutionFrequency = 1000; // How often to check if both sound sensors has triggered
-const uint16_t httpExeutionFrequency = 1000; // How often to check if a HTTP request is scheduled to run
-const uint16_t buzzerExeutionFrequency = 1000; // How often to check if a HTTP request is scheduled to run
+const uint16_t httpExeutionFrequency = 100000; // How often to check if a HTTP request is scheduled to run
+const uint16_t buzzerExeutionFrequency = 100000; // How often to check if a HTTP request is scheduled to run
 
 /*
   ---------------------------------------------------------------
   Sound sensors
   ---------------------------------------------------------------
 */
+const uint16_t micOffset = 30; // The offset difference for mics
 

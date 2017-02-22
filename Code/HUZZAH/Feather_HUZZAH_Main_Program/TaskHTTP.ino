@@ -8,15 +8,15 @@
   Most of the Serial.println in loop() is commented out because its so slow it holds the other tasks waiting
   ---------------------------------------------------------------
 */
+
 class HTTPTask : public Task {
   protected:
     void setup() {
       while (!taskSoundSensorsStarted) delay(100); //Wait for Sound sensor task to start
-      Serial.println(F("Starting HTTP Task..."));
-
       // Connecting to the WiFi network
-      Serial.print(F("Connecting to "));
+      Serial.print(F("Connecting to Wi-Fi: "));
       Serial.print(ssid);
+      Serial.print(F("..."));
       WiFi.begin(ssid, password);
       uint8_t wifiCounter = 0;
       while (WiFi.status() != WL_CONNECTED && wifiCounter < wifiConnectTimeout) {
@@ -25,31 +25,34 @@ class HTTPTask : public Task {
         wifiCounter++;
       }
       if (wifiCounter == wifiConnectTimeout) { // Wi-Fi could not connect
-        Serial.println(F("Wi-Fi connection timeout. Could not connect to Wi-Fi..."));
-        Serial.println(F("Try plugging out and back in the USB-cable"));
-        Serial.println(F("STOPPING PROGRAM"));
+        Serial.println(F("Wi-Fi connection timeout."));
+        Serial.println(F("Could not connect to Wi-Fi..."));
+        Serial.println(F("Try unplugging & replugging the USB-cable to reset the ESP8266"));
+        Serial.println(F("HALTING PROGRAM...."));
         doWifiNotFoundChime = 1; // Do the wi-fi not found buzzer chime, showing that Wi-Fi connection has failed!
         digitalWrite(ledRedPin, HIGH); // Turn off status LED(LED is inverted, so HIGH is off)
-        // Stop program
-        while (1) {
-          delay(1);
-        }
+        while (1) delay(1); // Stop program
       } else { // do normal startup operation
-        Serial.println(F("Connected to Wi-Fi!"));
-        Serial.print("IP address: ");
+        Serial.println(F("Connected!"));
+        Serial.print(F("IP address: "));
         Serial.println(WiFi.localIP());
-        while (!taskBuzzerStarted) delay(100); //Wait for buzzer task to start
+        Serial.println(F("Started HTTP Client Task"));
+        //while (!taskBuzzerStarted) delay(100); //Wait for buzzer task to start
         doStartupChime = 1; // Do the startup buzzer chime, showing that Wi-Fi is connected
-        while (doStartupChime) delay(100); // Wait for startup chime to finish
+        //while (doStartupChime) delay(100); // Wait for startup chime to finish
         delay(100);
         taskHTTPStarted = 1; // Set startup flag
       }
     }
 
     void loop()  {
-      if (sendDatabaseInfo) {
-        /////////CAM PTZ
+      yield(); // Allow other essential backgrund tasks to run
+      delayMicroseconds(httpExeutionFrequency); // Frequency to check if HTTP request should run
 
+      if (sendDatabaseInfo) {
+        //::pauseInterruptsWrap(); // Pause interrupts
+
+        /////////CAM PTZ
         Serial.print(F("Connecting to "));
         Serial.println(cameraIP);
 
@@ -57,7 +60,6 @@ class HTTPTask : public Task {
         // Use WiFiClient class to create TCP connections
         if (!getclient.connect(cameraIP, 80)) {
           Serial.println(F("Failed to connect to CAMERA!"));
-          return;
         }
 
         // Create URI for the request to pan camera
@@ -74,12 +76,9 @@ class HTTPTask : public Task {
 
         Serial.println(F("Sent rotation command to camera"));
 
-        delay(1000);
-
-//        ///////CAM VIRTUAL
+        //        ///////CAM VIRTUAL
         if (!getclient.connect(cameraIP, 80)) {
           Serial.println(F("Failed to connect to CAMERA!"));
-          return;
         }
         // Create URI for the request to pan camera
         url = "/axis-cgi/virtualinput/activate.cgi?schemaversion=1&port=1";
@@ -89,7 +88,6 @@ class HTTPTask : public Task {
 
         if (!getclient.connect(cameraIP, 80)) {
           Serial.println(F("Failed to connect to CAMERA!"));
-          return;
         }
         // This will send the request to the server
         getclient.print(String(F("GET ")) + url + F(" HTTP/1.1\r\n") +
@@ -98,22 +96,20 @@ class HTTPTask : public Task {
                         F("Connection: close\r\n\r\n"));
 
         //Read all the lines of the reply from server and print them to Serial
-//        Serial.print(F("Waiting for response from server..."));
-//        while (!getclient.available()) delay(1);// Wait for server to respond
-//        Serial.println(F("Response received:"));
-//        Serial.println(F("--------------------------------------------"));
-//        Serial.println(F(""));
-//        delay(100);// Allow network buffer to fill
-//        while (getclient.available()) {
-//          String line = getclient.readStringUntil('\r');
-//          Serial.print(line);
-//        }
-//        Serial.println(F("--------------------------------------------"));
-//        Serial.println(F("Response ended."));
-        
-        Serial.println(F("Sent Virtual input on"));
+        //        Serial.print(F("Waiting for response from server..."));
+        //        while (!getclient.available()) delay(1);// Wait for server to respond
+        //        Serial.println(F("Response received:"));
+        //        Serial.println(F("--------------------------------------------"));
+        //        Serial.println(F(""));
+        //        delay(100);// Allow network buffer to fill
+        //        while (getclient.available()) {
+        //          String line = getclient.readStringUntil('\r');
+        //          Serial.print(line);
+        //        }
+        //        Serial.println(F("--------------------------------------------"));
+        //        Serial.println(F("Response ended."));
 
-        delay(1000);
+        Serial.println(F("Sent Virtual input on"));
 
         url = "/axis-cgi/virtualinput/deactivate.cgi?schemaversion=1&port=1";
         Serial.print(F("Requesting URL: "));
@@ -129,8 +125,6 @@ class HTTPTask : public Task {
                         F("Authorization: Basic ") + base64auth + F("\r\n") +
                         F("Connection: close\r\n\r\n"));
 
-//
-
 
         Serial.println(F("Sent Virtual input off"));
 
@@ -142,7 +136,6 @@ class HTTPTask : public Task {
         if (!client.connect(databaseIP, 80)) {
           Serial.println(F("Failed to connect to database host!"));
           sendDatabaseInfo = 0; // Clear
-          return;
         } else {
           Serial.println(F("Connected!"));
         }
@@ -165,65 +158,23 @@ class HTTPTask : public Task {
         client.print(data);
         Serial.println(F("Sent!"));
 
-         //Read all the lines of the reply from server and print them to Serial
-//                  Serial.print(F("Waiting for response from server..."));
-//                  while (!client.available()) delay(1);// Wait for server to respond
-//                  Serial.println(F("Response received:"));
-//                  Serial.println(F("--------------------------------------------"));
-//                  Serial.println(F(""));
-//                  delay(100);// Allow network buffer to fill
-//                  while (client.available()) {
-//                    String line = client.readStringUntil('\r');
-//                    Serial.print(line);
-//                  }
-//                  Serial.println(F("--------------------------------------------"));
-//                  Serial.println(F("Response ended."));
-//        Serial.println(F("HTTP-task done."));
-
+        //Read all the lines of the reply from server and print them to Serial
+        //                  Serial.print(F("Waiting for response from server..."));
+        //                  while (!client.available()) delay(1);// Wait for server to respond
+        //                  Serial.println(F("Response received:"));
+        //                  Serial.println(F("--------------------------------------------"));
+        //                  Serial.println(F(""));
+        //                  delay(100);// Allow network buffer to fill
+        //                  while (client.available()) {
+        //                    String line = client.readStringUntil('\r');
+        //                    Serial.print(line);
+        //                  }
+        //                  Serial.println(F("--------------------------------------------"));
+        //                  Serial.println(F("Response ended."));
+        //        Serial.println(F("HTTP-task done."));
         sendDatabaseInfo = 0; // Clear
       }
-
-
-      if (sendGETRequestPing) {
-        Serial.println(F("Running a random GET request test..."));
-
-        Serial.print(F("Connecting to "));
-        Serial.println(testingHost);
-
-        WiFiClient client;
-        // Use WiFiClient class to create TCP connections
-        if (!client.connect(testingHost, 80)) {
-          Serial.println(F("Failed to connect to testing host!"));
-          return;
-        }
-
-        // We now create a URI for the request
-        String url = F("/testwifi/index.html");
-        //Serial.print(F("Requesting URL: "));
-        //Serial.println(url);
-
-        // This will send the request to the server
-        client.print(String(F("GET ")) + url + F(" HTTP/1.1\r\n") +
-                     F("Host: ") + testingHost + F("\r\n") +
-                     F("Connection: close\r\n\r\n"));
-
-        sendGETRequestPing = 0; // Clear
-        Serial.println(F("Done with doing GET-request"));
-        // Read all the lines of the reply from server and print them to Serial
-        // This readStringUntil function takes a long time and is badly compatible with scheduler.
-        // When this function is ran it freezes all other tasks.
-        // Make another while loop to print out all characters in realtime with delay to support scheduler in the future
-        //      while (client.available()) {
-        //        String line = client.readStringUntil('\r');
-        //        Serial.print(line);
-        //        delay(10);
-        //      }
-
-        //      Serial.println(F(""));
-        //      Serial.println(F("closing connection"));
-      }
-      delayMicroseconds(httpExeutionFrequency); // Frequency to check if HTTP request should run
-      //yield(); // Allow other essential backgrund tasks to run
+      ::unpauseInterruptsWrap(); // Pause interrupts
     }
 
   private:
