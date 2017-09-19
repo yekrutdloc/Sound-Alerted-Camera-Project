@@ -2,7 +2,8 @@
 School project embedded systems
 
 
-##Directory tree
+
+Directory tree
 > The directory tree for this repo
 
 ``` ruby
