@@ -1,4 +1,5 @@
 # Grupp4 - A sound alerted surveillance camera
+School project embedded systems
 
 
 ##Directory tree
@@ -20,6 +21,4 @@
 |        |  
 |        +-- Hardware Test Codes #Projects for testing hardware  
 ```
-
-###For more detailed information about the project, how to set up the components and more, check the Wiki page.
 
