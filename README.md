@@ -1,5 +1,5 @@
-# Grupp4 - A sound alerted surveillance camera
-School project embedded systems
+# A sound alerted surveillance camera
+School project embedded systems (Grupp 4, Axis)
 
 
 
